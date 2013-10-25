@@ -35,6 +35,8 @@ Where `[FILE]` is a _YAML_ file of the following structure (only the `url` prope
       volume: 1.0
       mute: false
 
+The mixer should now respond to the changes you make in `[FILE]` on the fly.
+
 ## Contributing
 
 1. Fork it

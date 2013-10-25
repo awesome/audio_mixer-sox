@@ -12,7 +12,7 @@ begin
     sound_server = AudioMixer::Sox::SoundServer.new(composition)
     loop do
       composition.update! if composition.has_changed?
-      sound_server.update!
+      sound_server.tick
       sleep 0.01
     end
   end
