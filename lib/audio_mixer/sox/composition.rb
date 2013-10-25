@@ -5,21 +5,28 @@ module AudioMixer
     class Composition
       attr_reader :sounds
 
-      def initialize(file)
-        @file = file
+      def initialize(filename)
+        @filename = filename
         update!
       end
 
       def has_changed?
-        @file.mtime != @last_mtime
+        File.new(@filename, "r").mtime > @last_mtime
+      rescue Errno::ENOENT
+        puts "Composition file unavailable!"
       end
 
       def update!
-        YAML.load(@file).tap do |collection|
-          @sounds = collection if collection_is_valid?(collection)
+        YAML.load_file(@filename).tap do |collection|
+          if collection_is_valid?(collection)
+            @sounds = collection
+            puts "Composition file updated..."
+          end
         end
-
-        @last_mtime = @file.mtime
+      rescue Psych::SyntaxError
+        puts "Composition file corrupted, ignoring..."
+      ensure
+        @last_mtime = Time.now
       end
 
       private
