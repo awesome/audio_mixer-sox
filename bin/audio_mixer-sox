@@ -7,17 +7,14 @@ begin
   abort("Usage audio_mixer-sox [FILE]") if ARGV.size > 1
   abort("#{ARGV[0]} does not exist!") unless File.exists?(ARGV[0])
 
-  server_thread = Thread.new do
-    composition = AudioMixer::Sox::Composition.new(ARGV[0])
-    sound_server = AudioMixer::Sox::SoundServer.new(composition)
-    loop do
-      composition.update! if composition.has_changed?
-      sound_server.tick
-      sleep 0.01
-    end
-  end
+  composition = AudioMixer::Sox::Composition.new(ARGV[0])
+  sound_server = AudioMixer::Sox::SoundServer.new(composition)
 
-  server_thread.join
+  loop do
+    composition.update! if composition.has_changed?
+    sound_server.tick
+    sleep 0.01
+  end
 rescue Interrupt
   puts "Bye!"
 end
