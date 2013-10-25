@@ -3,7 +3,7 @@
 require 'audio_mixer/sox'
 
 begin
-  abort("Usage audio_mixer-sox [FILE]") if ARGV.size > 1
+  abort("Usage audio_mixer-sox [FILE]") if ARGV.size != 1
   abort("#{ARGV[0]} does not exist!") unless File.exists?(ARGV[0])
 
   composition = AudioMixer::Sox::Composition.new(ARGV[0])
