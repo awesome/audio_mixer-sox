@@ -4,32 +4,21 @@ require 'audio_mixer/sox'
 require 'fileutils'
 
 begin
-  HELP_MESSAGE = <<-EOS
-  Usage audio_mixer-sox [OPTIONS] [FILE]
-
-  Available options:
-    -q\tquiet mode (no file editor)
-  EOS
-
-  quiet = ARGV.delete("-q") != nil
-  abort(HELP_MESSAGE) if ARGV.size > 1
+  abort("Usage audio_mixer-sox [FILE]") if ARGV.size > 1
 
   FileUtils.touch(ARGV[0]) unless File.exists?(ARGV[0])
-  composition = AudioMixer::Sox::Composition.new(ARGV[0])
 
   server_thread = Thread.new do
+    composition = AudioMixer::Sox::Composition.new(ARGV[0])
+    sound_server = AudioMixer::Sox::SoundServer.new(composition)
     loop do
       composition.update! if composition.has_changed?
+      sound_server.update!
       sleep 0.01
     end
   end
 
-  if quiet
-    server_thread.join
-  else
-    system("#{ENV['EDITOR'] || 'vim'} #{ARGV[0]}") unless quiet
-    server_thread.exit
-  end
+  server_thread.join
 rescue Interrupt
   puts "Bye!"
 end
