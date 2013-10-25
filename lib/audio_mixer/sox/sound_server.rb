@@ -34,7 +34,7 @@ module AudioMixer
       end
 
       def load_raw_sound(url)
-        IO.popen("sox #{File.expand_path(url)} -p", "rb") do |io|
+        IO.popen("sox \"#{File.expand_path(url)}\" -p", "rb") do |io|
           io.read
         end
       end
