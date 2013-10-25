@@ -21,7 +21,7 @@ module AudioMixer
 
         (0..@composition.sounds.size-1).each do |index|
           @timeouts[index] -= deltaTime
-          
+
           if @timeouts[index] < 0
             @timeouts[index] = @composition.sounds[index]["timeout"] || 1.0
             play_sound(@composition.sounds[index])
@@ -44,7 +44,7 @@ module AudioMixer
 
       def play_sound(sound)
         Thread.new do
-          process = IO.popen("sox -p -d > /dev/null 2>&1", "wb") do |io|
+          process = IO.popen("sox -v #{sound["volume"] || 1.0} -p -d > /dev/null 2>&1", "wb") do |io|
             io.write(@sound_buffers[sound["url"]])
           end
         end
