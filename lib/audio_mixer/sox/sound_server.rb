@@ -44,7 +44,7 @@ module AudioMixer
 
       def play_sound(sound)
         Thread.new do
-          process = IO.popen("sox -v #{sound["volume"] || 1.0} -p -d > /dev/null 2>&1", "wb") do |io|
+          process = IO.popen("sox -v #{sound["volume"] || 1.0} -p -d pan #{sound["panning"] || 0.0} > /dev/null 2>&1", "wb") do |io|
             io.write(@sound_buffers[sound["url"]])
           end
         end
