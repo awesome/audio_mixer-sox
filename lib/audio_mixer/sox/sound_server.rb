@@ -23,8 +23,8 @@ module AudioMixer
           @timeouts[index] -= deltaTime
 
           if @timeouts[index] < 0
-            @timeouts[index] = @composition.sounds[index]["timeout"] || 1.0
-            play_sound(@composition.sounds[index])
+            @timeouts[index] = @composition.sounds[index]["repeat"] || 1.0
+            play_sound(@composition.sounds[index]) unless @composition.sounds[index]["mute"]
           end
         end
       end
