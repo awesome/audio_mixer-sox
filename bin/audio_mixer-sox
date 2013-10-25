@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'audio_mixer/sox'
-require 'fileutils'
 
 begin
   abort("Usage audio_mixer-sox [FILE]") if ARGV.size > 1
