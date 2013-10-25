@@ -5,8 +5,7 @@ require 'fileutils'
 
 begin
   abort("Usage audio_mixer-sox [FILE]") if ARGV.size > 1
-
-  FileUtils.touch(ARGV[0]) unless File.exists?(ARGV[0])
+  abort("#{ARGV[0]} does not exist!") unless File.exists?(ARGV[0])
 
   server_thread = Thread.new do
     composition = AudioMixer::Sox::Composition.new(ARGV[0])

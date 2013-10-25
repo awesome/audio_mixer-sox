@@ -16,7 +16,24 @@ Then install this gem:
 
 ## Usage
 
-    $ audio_mixer-sox ./composition.yml
+    $ audio_mixer-sox [FILE]
+
+Where `[FILE]` is a _YAML_ file of the following structure (only the `url` property is really necessary):
+
+    # sample composition
+    ---
+    -
+      url: "~/workspace/sounds/door_open.ogg"
+      repeat: 1.2
+      panning: 0.0
+      volume: 1.0
+      mute: false
+    -
+      url: "~/workspace/sounds/disappear.ogg"
+      repeat: 1.5
+      panning: 0.8
+      volume: 1.0
+      mute: false
 
 ## Contributing
 
