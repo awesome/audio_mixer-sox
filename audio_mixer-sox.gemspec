@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kosmadunikowski@gmail.com"]
   spec.description   = "Use AudioMixer::Sox to easily find and store the right balance of volume and panning for multiple sound files."
   spec.summary       = spec.description
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/kdunee/audio_mixer-sox"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
